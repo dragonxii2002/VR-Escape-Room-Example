@@ -35,7 +35,7 @@ public class EndingSequence : MonoBehaviour
         const float length = 4.0f;
         for (float t = 0.0f; t < length; t += Time.deltaTime)
         {
-            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 1, t / length));
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 0.5f, t / length));
 
             MeshRenderer.GetPropertyBlock(m_Block);
             m_Block.SetColor("_BaseColor", newColor);
@@ -44,6 +44,6 @@ public class EndingSequence : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
@@ -9,7 +10,7 @@ using Random = UnityEngine.Random;
 public class Potion : MonoBehaviour
 {
     static int NextFreeUniqueId = 3000;
-    
+
     public string PotionType = "Default";
     public GameObject plugObj;
     public ParticleSystem particleSystemLiquid;
@@ -94,12 +95,9 @@ public class Potion : MonoBehaviour
 
             m_AudioSource.pitch = Mathf.Lerp(1.0f, 1.4f, 1.0f - fillRatio);
 
-            RaycastHit hit;
-            if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
-            {
-                PotionReceiver receiver = hit.collider.GetComponent<PotionReceiver>();
-
-                if (receiver != null)
+            if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out RaycastHit hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
+            {                   
+                if (hit.collider.TryGetComponent<PotionReceiver>(out var receiver))
                 {
                     receiver.ReceivePotion(PotionType);
                 }

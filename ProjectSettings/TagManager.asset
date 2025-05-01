@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ignite
+  - Unlocker
   layers:
   - Default
   - TransparentFX
